@@ -63,6 +63,7 @@ class MatrixGestureDetector extends StatefulWidget {
   final Alignment? focalPointAlignment;
   final VoidCallback onScaleStart;
       final VoidCallback onScaleEnd;
+      final Matrix4? setMatrix;
   const MatrixGestureDetector({
     Key? key,
     required this.onMatrixUpdate,
@@ -74,7 +75,8 @@ class MatrixGestureDetector extends StatefulWidget {
     this.focalPointAlignment,
     this.behavior = HitTestBehavior.deferToChild,
      required this.onScaleStart,
-      required this.onScaleEnd, 
+      required this.onScaleEnd,
+      this.setMatrix,
   })  : super(key: key);
 
   @override
@@ -118,6 +120,7 @@ class _MatrixGestureDetectorState extends State<MatrixGestureDetector> {
 
   @override
   Widget build(BuildContext context) {
+        matrix =widget.setMatrix!=null? widget.setMatrix!:Matrix4.identity();
     Widget child =
         widget.clipChild ? ClipRect(child: widget.child) : widget.child;
     return GestureDetector(
